@@ -89,14 +89,20 @@ int main()
 		}
 	}
 
-	fclose(file);
+	fclose(file);	
 
-	// Sort Blocks for best performance
+	file = fopen("cuts.txt", "w+");
+	
+	// Loop through boards
 	for (k = 1; k <= totalBoards; ++k){
-		// Bubble Sort
+
+		fprintf(file, "board %d\n", k);
+
 		root->used = 0;
 		totalBlocksRemaining = 0;
 
+		// Sort Blocks for best performance
+		// Bubble sort by Max Side
 		for (i = 0; i < totalBlocks; i++) {			
 			for (j = 0; j < totalBlocks - i - 1; j++) {
 				int maxJ = MAX(blocks[j]->height, blocks[j]->width);
@@ -118,6 +124,7 @@ int main()
 			}
 		}
 
+		//Start Algorithm
 		for (i = 0; i < totalBlocks; i++) {
 			Block *block = blocks[i];
 			Node *node;
@@ -129,6 +136,7 @@ int main()
 		for (i = 0; i < totalBlocks; i++) {
 			Block *block = blocks[i];
 			if (block->fit) {
+				fprintf(file, "X%d Y%d W%d H%d\n", block->fit->x, block->fit->y, block->width, block->height);
 				printf("BLOCK %d fit in BOARD %d\n", block->id, k);
 				printf("x %d y %d\n", block->fit->x, block->fit->y);
 				printf("w %d h %d\n", block->width, block->height);
