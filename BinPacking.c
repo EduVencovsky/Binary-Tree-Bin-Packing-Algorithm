@@ -159,6 +159,13 @@ int main()
 
 	}		
 
+	for (i = 0; i < totalBlocksRemaining; ++i)
+	{
+		fprintf(file, "\nW%d H%d don't fit", blocks[i]->width, blocks[i]->height);
+		printf("\nBLOCK %d dont fit in any BOARD \n", blocks[i]->id);
+	}
+
+
     return 0;
 }
 
