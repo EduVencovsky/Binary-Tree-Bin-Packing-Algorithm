@@ -34,7 +34,7 @@ int MIN(int a, int b);
 int main()
 {
 	FILE *file;
-	char line[80];
+	char line[20];
 	Node *root;
 	Block **blocks;
 	Block **blocksRemaining;
@@ -48,7 +48,7 @@ int main()
 	root->right = NULL;
 	
 
-	file = fopen("blocks.txt", "r");
+	file = fopen("blocks.txt", "r+");
 
 	// First Line
 	// Amount of Boards you can cut
@@ -90,7 +90,6 @@ int main()
 	}
 
 	fclose(file);	
-
 	file = fopen("cuts.txt", "w+");
 	
 	// Loop through boards
@@ -133,6 +132,7 @@ int main()
 			}
 		}
 
+		// Print blocks that fit and don't fit
 		for (i = 0; i < totalBlocks; i++) {
 			Block *block = blocks[i];
 			if (block->fit) {
@@ -151,6 +151,7 @@ int main()
 
 		free(blocks);
 
+		// Getting remaining blocks for the next board
 		blocks = malloc(totalBlocksRemaining * sizeof(Block *));
 		totalBlocks = totalBlocksRemaining;
 		for (i = 0; i < totalBlocksRemaining; i++) {
@@ -159,12 +160,16 @@ int main()
 
 	}		
 
+	// Check for blocks that didn't fit in the boards
 	for (i = 0; i < totalBlocksRemaining; ++i)
 	{
 		fprintf(file, "\nW%d H%d don't fit", blocks[i]->width, blocks[i]->height);
 		printf("\nBLOCK %d dont fit in any BOARD \n", blocks[i]->id);
 	}
 
+	free(blocks);
+	free(blocksRemaining);
+	fclose(file);
 
     return 0;
 }
