@@ -13,7 +13,9 @@ O sistema, desenvolvido em linguagem C, deve ter como entrada de dados um arquiv
 
 A arquivo de entrada tem formato único, conforme EXEMPLO abaixo:
 As dimensões das placas e objetos esta em centímetros
+
 ============================
+
 2
 304
 200
@@ -24,7 +26,9 @@ As dimensões das placas e objetos esta em centímetros
 3  9
 33  67
 5 19
+
 ============================
+
 Descrição do Arquivo:
 1a. linha = quantidade de placas para corte que há no estoque, caso seja necessário.
 2a. linha = largura das placas
