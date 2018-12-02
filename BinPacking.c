@@ -1,3 +1,6 @@
+//Eduardo Vencosky 201710281	
+//Vitor Facioli    201710292
+//Igor Prata       201710277
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -35,6 +38,7 @@ int main()
 {
 	FILE *file;
 	char line[20];
+	char fileName[50];
 	Node *root;
 	Block **blocks;
 	Block **blocksRemaining;
@@ -47,8 +51,17 @@ int main()
 	root->down = NULL;
 	root->right = NULL;
 	
+	printf("File name to open: ");
+	gets(fileName);
+	file = fopen(fileName, "r+");
+	while(!file){
+		printf("Fail to read file named %s.\n", fileName);
+		printf("File name to open: ");
+		gets(fileName);
+		file = fopen(fileName, "r+");
+	}
 
-	file = fopen("blocks.txt", "r+");
+	printf("Reading file %s\n\n", fileName);
 
 	// First Line
 	// Amount of Boards you can cut
@@ -177,9 +190,10 @@ int main()
 Node *findNode(Node *node, int w, int h) {	
 	if (node->used == 1) {
 		Node * rightNode = findNode(node->right, w, h);
-		Node * downNode = findNode(node->down, w, h);
 		if (rightNode)
 			return rightNode;
+
+		Node * downNode = findNode(node->down, w, h);
 		return downNode;
 	}
 	else if ((w <= node->width) && (h <= node->height)) {
